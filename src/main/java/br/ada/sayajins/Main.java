@@ -6,7 +6,12 @@ public class Main {
         var leitorCSV = new LeitorCSV();
         var listaPagamentos = leitorCSV.lerPagamentos("pagamentos.csv");
 
+        System.out.println("------------------------------ TODOS -----------------------------------------");
         System.out.println(listaPagamentos);
+
+        System.out.println("------------------------------ ATRASADOS -----------------------------------------");
+        ProcessarPagamentos.processar(listaPagamentos);
+        //System.out.println(listaPagamentos);
         
     }
 
