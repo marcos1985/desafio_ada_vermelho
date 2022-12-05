@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.Locale;
 
-public class Pagamentos {
+public class Pagamento {
     private String nome;
 
     private LocalDate dtVencto;
@@ -47,11 +47,11 @@ public class Pagamentos {
     }
 
 
-    public Pagamentos(String s){
+    public Pagamento(String s){
         setNome(s);
     }
 
-    public Pagamentos(String s, LocalDate dateVencto, double valor, TipoPagamentoEnum tipoPagamentoEnum){
+    public Pagamento(String s, LocalDate dateVencto, double valor, TipoPagamentoEnum tipoPagamentoEnum){
         this.valor=BigDecimal.valueOf(valor);
         this.nome=s;
         this.dtVencto=dateVencto;
