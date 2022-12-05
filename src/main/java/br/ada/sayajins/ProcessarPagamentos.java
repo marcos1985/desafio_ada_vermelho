@@ -12,6 +12,7 @@ public class ProcessarPagamentos {
     
     public static void processar(List<Pagamento> pagamentos) {
 
+        // Vencidos
         pagamentos.stream()
                 .filter((pag) -> pag.getDtVencto().isBefore(LocalDate.now()))
                 .map((pag) -> {
@@ -30,8 +31,22 @@ public class ProcessarPagamentos {
                                             .multiply(BigDecimal.valueOf(Math.pow(1 + taxa, meses)));
                     pag.setValor(montante);
                     return pag;
-                })
-                .forEach((pag) -> System.out.println(pag));
+                });
+                //.forEach((pag) -> System.out.println(pag));
+
+            // Desconto por adiantamento
+            pagamentos.stream()
+                    .filter((pag) -> pag.getTipoPagamentoEnum() == TipoPagamentoEnum.FIDELIDADE && Period.between(pag.getDtVencto(), LocalDate.now()).getDays() < 0)
+                    .map((pag) -> {
+                        int dias = Math.abs(Period.between(pag.getDtVencto(), LocalDate.now()).getDays());
+                        double taxa = 0.005 * dias;
+                        
+                        BigDecimal montante = pag.getValor()
+                                                .multiply(BigDecimal.valueOf(1 - taxa));
+                        pag.setValor(montante);
+                        return pag;
+                    })
+                    .forEach(System.out::println);
 
     }
 }
