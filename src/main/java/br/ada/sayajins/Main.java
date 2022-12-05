@@ -6,19 +6,21 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         var leitorCSV = new LeitorCSV();
+        
+        // Ler pagamentos do arquivo.
         var listaPagamentos = leitorCSV.lerPagamentos("pagamentos.csv");
 
-        // System.out.println("------------------------------ TODOS -----------------------------------------");
-        // System.out.println(listaPagamentos);
-
-        // System.out.println("------------------------------ ATRASADOS -----------------------------------------");
+        // Realiza o processamento conforme os requisitos.
         ProcessarPagamentos.processar(listaPagamentos);
-        //System.out.println(listaPagamentos);
 
-        ProcessarPagamentos.gerarArquivos(listaPagamentos, TipoPagamentoEnum.CREDITO);
-        ProcessarPagamentos.gerarArquivos(listaPagamentos, TipoPagamentoEnum.DEBITO);
-        ProcessarPagamentos.gerarArquivos(listaPagamentos, TipoPagamentoEnum.BOLETO);
-        ProcessarPagamentos.gerarArquivos(listaPagamentos, TipoPagamentoEnum.FIDELIDADE);
+
+        // Cria um arquivo para cada tipo de pagamento
+        TipoPagamentoEnum[] tiposPagamento = {TipoPagamentoEnum.CREDITO, TipoPagamentoEnum.DEBITO, 
+                                              TipoPagamentoEnum.BOLETO, TipoPagamentoEnum.FIDELIDADE};
+        
+        for(var tipo : tiposPagamento) {
+            ProcessarPagamentos.gerarArquivos(listaPagamentos, tipo);
+        }
         
     }
 
