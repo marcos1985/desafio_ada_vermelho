@@ -7,6 +7,7 @@ public class Main {
 
         var csvReader = new CSVReader();
         var list = csvReader.readPagamentos("pagamentos.csv");
+        
         System.out.println(list);
         
     }

@@ -20,32 +20,32 @@ import br.ada.sayajins.model.TipoPagamentoEnum;
 
 public class CSVReader {
     
+    // Ler arquivo CSV com os dados de pagamento.
     public List<Pagamento> readPagamentos(String fileName) throws Exception, IOException {
 
         List<Pagamento> list = new ArrayList<>();
 
+        // lendo arquivo
         InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         
         String line;
         
+        // Excluir a primeira linha com os nomes das colunas.
         br.readLine();
 
         while((line = br.readLine()) != null) {
 
+            // Lendo somente as linhas que tem conteúdo
             if (line.trim() != null) {
                 String[] pieces = line.split(";");
 
+                // Exclui as linhas que não têm todas as colunas
                 if (pieces.length != 4) {
                     continue;
                 }
 
-                System.out.println(Arrays.toString(pieces));
-                //String s, LocalDate dateVencto, double valor, TipoPagamentoEnum tipoPagamentoEnum
                 var p = DateTimeFormatter.ofPattern("yyyyMMdd");
-
-                // Tipo
-                //TipoPagamentoEnum tipo = TipoPagamentoEnum.BOLETO;
                 TipoPagamentoEnum tipo;
                 
                 switch (pieces[1].toUpperCase()) {
