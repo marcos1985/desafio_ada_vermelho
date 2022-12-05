@@ -18,37 +18,37 @@ import java.time.format.DateTimeFormatter;
 import br.ada.sayajins.model.Pagamento;
 import br.ada.sayajins.model.TipoPagamentoEnum;
 
-public class CSVReader {
+public class LeitorCSV {
     
     // Ler arquivo CSV com os dados de pagamento.
-    public List<Pagamento> readPagamentos(String fileName) throws Exception, IOException {
+    public List<Pagamento> lerPagamentos(String nomeArquivo) throws Exception, IOException {
 
         List<Pagamento> list = new ArrayList<>();
 
         // lendo arquivo
-        InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
+        InputStream is = getClass().getClassLoader().getResourceAsStream(nomeArquivo);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         
-        String line;
+        String linha;
         
         // Excluir a primeira linha com os nomes das colunas.
         br.readLine();
 
-        while((line = br.readLine()) != null) {
+        while((linha = br.readLine()) != null) {
 
             // Lendo somente as linhas que tem conteúdo
-            if (line.trim() != null) {
-                String[] pieces = line.split(";");
+            if (linha.trim() != null) {
+                String[] partes = linha.split(";");
 
                 // Exclui as linhas que não têm todas as colunas
-                if (pieces.length != 4) {
+                if (partes.length != 4) {
                     continue;
                 }
 
                 var p = DateTimeFormatter.ofPattern("yyyyMMdd");
                 TipoPagamentoEnum tipo;
                 
-                switch (pieces[1].toUpperCase()) {
+                switch (partes[1].toUpperCase()) {
                     case "FIDELIDADE": 
                         tipo = TipoPagamentoEnum.FIDELIDADE;
                         break;
@@ -65,7 +65,7 @@ public class CSVReader {
                         throw new Exception("Deu ruim mah!!");
                 }
                 
-                var item = new Pagamento(pieces[0], LocalDate.parse(pieces[2], p), Double.parseDouble(pieces[3]), tipo); 
+                var item = new Pagamento(partes[0], LocalDate.parse(partes[2], p), Double.parseDouble(partes[3]), tipo); 
                 list.add(item);
             }
             
