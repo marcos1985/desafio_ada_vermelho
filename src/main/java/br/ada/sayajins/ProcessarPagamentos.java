@@ -1,8 +1,13 @@
 package br.ada.sayajins;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import br.ada.sayajins.model.Pagamento;
@@ -45,8 +50,32 @@ public class ProcessarPagamentos {
                                                 .multiply(BigDecimal.valueOf(1 - taxa));
                         pag.setValor(montante);
                         return pag;
-                    })
-                    .forEach(System.out::println);
+                    });
+                    //.forEach(System.out::println);
+    }
+
+    public static void gerarArquivos(List<Pagamento> pagamentos, TipoPagamentoEnum tipo) throws IOException {
+        BufferedWriter bw;
+        
+        var nomeArquivo = "PAGAMENTOS_" + tipo.toString() + "_" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ".csv";
+        
+        bw = new BufferedWriter(new FileWriter(new File(nomeArquivo))); 
+        bw.write("Nome;Tipo Pagamento;Data Vencimento;Valor\n");
+        
+        pagamentos.stream()
+            .filter((pag) -> pag.getTipoPagamentoEnum() == tipo)
+            .forEach((pag) -> {
+                var str = pag.getNome() + ";" + pag.getTipoPagamentoEnum().toString() + ";" + pag.getDtVencto().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + ";" + pag.getValor();
+                try {
+                    bw.write(str);
+                    bw.write("\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
+            });
+
+        bw.close();
 
     }
 }
