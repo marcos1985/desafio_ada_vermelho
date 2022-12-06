@@ -14,12 +14,14 @@ public class Main {
         ProcessarPagamentos.processar(listaPagamentos);
 
 
-        // Cria um arquivo para cada tipo de pagamento
+        // Array com a lista de tipos de pagamento
         TipoPagamentoEnum[] tiposPagamento = {TipoPagamentoEnum.CREDITO, TipoPagamentoEnum.DEBITO, 
                                               TipoPagamentoEnum.BOLETO, TipoPagamentoEnum.FIDELIDADE};
         
+        // Gera os arquivos CSV por tipo, um em cada thread.                                      
         for(var tipo : tiposPagamento) {
-            ProcessarPagamentos.gerarArquivos(listaPagamentos, tipo);
+            Thread b = new Thread(new ThreadGerarCSV(listaPagamentos, tipo));
+            b.start();
         }
         
     }
