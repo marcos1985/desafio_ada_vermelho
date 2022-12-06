@@ -16,7 +16,7 @@ public class Main {
 
         // Array com a lista de tipos de pagamento
         TipoPagamentoEnum[] tiposPagamento = {TipoPagamentoEnum.CREDITO, TipoPagamentoEnum.DEBITO, 
-                                              TipoPagamentoEnum.BOLETO, TipoPagamentoEnum.FIDELIDADE};
+                                              TipoPagamentoEnum.BOLETO, TipoPagamentoEnum.FIDELIDADE, TipoPagamentoEnum.PIX};
         
         // Gera os arquivos CSV por tipo, um em cada thread.                                      
         for(var tipo : tiposPagamento) {

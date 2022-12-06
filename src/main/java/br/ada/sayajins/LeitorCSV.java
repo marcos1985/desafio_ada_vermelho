@@ -61,6 +61,9 @@ public class LeitorCSV {
                     case "BOLETO": 
                         tipo = TipoPagamentoEnum.BOLETO;
                         break;
+                    case "PIX":
+                        tipo = TipoPagamentoEnum.PIX;
+                        break;
                     default:
                         throw new Exception("Deu ruim mah!!");
                 }

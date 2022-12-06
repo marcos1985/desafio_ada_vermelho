@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ada.sayajins.model.Pagamento;
@@ -40,10 +41,13 @@ public class ProcessarPagamentos {
                 //.forEach((pag) -> System.out.println(pag));
 
             // Desconto por adiantamento
+            var tiposAdiantamento = List.of(TipoPagamentoEnum.FIDELIDADE, TipoPagamentoEnum.PIX);
+            //System.err.println("AJhsjhj");
             pagamentos.stream()
-                    .filter((pag) -> pag.getTipoPagamentoEnum() == TipoPagamentoEnum.FIDELIDADE && Period.between(pag.getDtVencto(), LocalDate.now()).getDays() < 0)
+                    .filter((pag) -> tiposAdiantamento.contains(pag.getTipoPagamentoEnum()) && Period.between(pag.getDtVencto(), LocalDate.now()).getDays() < 0)
                     .map((pag) -> {
                         int dias = Math.abs(Period.between(pag.getDtVencto(), LocalDate.now()).getDays());
+                        System.out.println("DIAS " + pag.getTipoPagamentoEnum().toString() + " : " + dias);
                         double taxa = 0.005 * dias;
                         
                         BigDecimal montante = pag.getValor()
