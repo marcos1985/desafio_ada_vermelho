@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -12,6 +13,7 @@ import br.ada.sayajins.model.TipoPagamentoEnum;
 
 /*
  * @autor: Marcos Alves de Oliveira
+ * @autor: Gabriel Faustino Lima da Rocha
  * 
  * Classe criada para gerar os arquivos .csv por meio de thread
  */
@@ -52,7 +54,7 @@ public class ThreadGerarCSV implements Runnable {
 				.append(";")
 				.append(pag.getDtVencto().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
 				.append(";")
-				.append(pag.getValor())
+				.append(pag.getValor().setScale(2, RoundingMode.CEILING))
 				.append("\n");
 				
 				bw.write(sb.toString());

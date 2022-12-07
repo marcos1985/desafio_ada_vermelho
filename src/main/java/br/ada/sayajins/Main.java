@@ -12,11 +12,17 @@ public class Main {
 
         // Realiza o processamento conforme os requisitos.
         ProcessarPagamentos.processar(listaPagamentos);
+        //System.out.println(listaPagamentos);
 
-
+        /*
+        * @author: Isaac Neves Farias
+        * Geração de arquivos na main
+        */
         // Array com a lista de tipos de pagamento
         TipoPagamentoEnum[] tiposPagamento = {TipoPagamentoEnum.CREDITO, TipoPagamentoEnum.DEBITO, 
                                               TipoPagamentoEnum.BOLETO, TipoPagamentoEnum.FIDELIDADE, TipoPagamentoEnum.PIX};
+        
+        
         
         // Gera os arquivos CSV por tipo, um em cada thread.                                      
         for(var tipo : tiposPagamento) {

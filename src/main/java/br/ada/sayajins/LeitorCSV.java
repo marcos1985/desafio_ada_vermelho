@@ -20,6 +20,9 @@ import br.ada.sayajins.model.TipoPagamentoEnum;
 
 public class LeitorCSV {
     
+    /*
+    * @author: João Alexandre
+    */
     // Ler arquivo CSV com os dados de pagamento.
     public List<Pagamento> lerPagamentos(String nomeArquivo) throws Exception, IOException {
 
@@ -68,7 +71,8 @@ public class LeitorCSV {
                         throw new Exception("Deu ruim mah!!");
                 }
                 
-                var item = new Pagamento(partes[0], LocalDate.parse(partes[2], p), Double.parseDouble(partes[3]), tipo); 
+                var item = new Pagamento(partes[0], LocalDate.parse(partes[2], p), Double.parseDouble(partes[3]), tipo);
+                //System.out.println(item);
                 list.add(item);
             }
             
