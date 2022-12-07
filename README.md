@@ -1,3 +1,11 @@
+# Alunos
+Gabriel Faustino Lima da Rocha
+Isaac Neves Farias
+Joao Vitor Siqueira Resende
+Joao Alexandre de Souza Ferreira
+Lucas Kazuo Mimura
+Marcos Alves de Oliveira
+
 # Projeto ADA
 
 Olá, alunos!
