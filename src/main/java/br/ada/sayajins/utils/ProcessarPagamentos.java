@@ -1,4 +1,4 @@
-package br.ada.sayajins;
+package br.ada.sayajins.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;

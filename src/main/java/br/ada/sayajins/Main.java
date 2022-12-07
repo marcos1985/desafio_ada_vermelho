@@ -1,6 +1,9 @@
 package br.ada.sayajins;
 
 import br.ada.sayajins.model.TipoPagamentoEnum;
+import br.ada.sayajins.utils.LeitorCSV;
+import br.ada.sayajins.utils.ProcessarPagamentos;
+import br.ada.sayajins.utils.ThreadGerarCSV;
 
 public class Main {
     public static void main(String[] args) throws Exception {
